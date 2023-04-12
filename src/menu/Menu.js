@@ -3,7 +3,7 @@ import '../css/Menu.css'; //Placeholder
 
 function Menu() {
   return (
-    <div className="Menu">
+    <div className="menu">
       Kostbollar
     </div>
   );

@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Game from './game/Game';
-import Menu from './menu/Menu';
+import Game from './Game/Game';
+import Menu from './Menu/Menu';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Menu />,
     <Game />
+    <Menu />
   </React.StrictMode>
 );
 

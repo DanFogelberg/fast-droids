@@ -3,8 +3,8 @@ import '../css/Game.css'; //Placeholder
 
 function Game() {
   return (
-    <div className="Game">
-      Ostbollar
+    <div className="game">
+      
     </div>
   );
 }
