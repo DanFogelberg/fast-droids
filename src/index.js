@@ -6,9 +6,21 @@ import Game from './Game/Game';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// const game = new Game();
+
+
+
+
+// const gameLoop = () => {
+//   game.gameLoop();
+//   setTimeout(gameLoop, 100);
+
+// }
+// gameLoop();
+
 root.render(
   <React.StrictMode>
-    <Game />
+   <Game />
     {/* <Menu /> */}
   </React.StrictMode>
 );
