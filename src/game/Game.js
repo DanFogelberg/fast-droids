@@ -1,4 +1,3 @@
-import logo from '../logo.svg';
 import Asteroid from '../Asteroid/Asteroid';
 import '../css/Game.css'; //Placeholder
 import { useEffect } from 'react';
