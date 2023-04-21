@@ -3,56 +3,44 @@ import { useState } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 
-
-
-
-
-
-
 class Asteroid extends React.Component{
-    
-
     
 
     constructor(props) {
       super(props);
-      this.state = ({x: 100, y: 0});
+      this.state = {x: 100, y: 0};
 
-      this.AsteroidDiv = styled.div`
+    //   this.AsteroidDiv = styled.div`
 
-      background-color: red;
-      transform: translateX(${this.state.x}px);
+    //   background-color: red;
+    //   transform: translateX(${this.state.x}px);
     
     
-    `
+    // `
+    }
 
-        
+      // update(){
+      //   this.AsteroidDiv = styled.div`
+      //   background-color: red;
+      //   transform: translateX(${this.state.x}px);      
 
-        
-
-
-      }
-
-      update(){
-        this.AsteroidDiv = styled.div`
-        background-color: red;
-        transform: translateX(${this.state.x}px);
-      
-
-      `
-
-      }
+      // `
+      // }
 
 
-      render(){
+      render(state){
 
         return (
-          <this.AsteroidDiv className="asteroid"  onClick= { () => this.state.x = 5}>
+          <div 
+          className="asteroid"  
+          onClick= { () => {
+            this.state = {x: 1000};
+            console.log(this.state.x);
+            }}>
               {this.state.x}
-          </this.AsteroidDiv>
+          </div>
         );
       }
-      // style = {{transform: "translateX"(this.x)}} 
 
 }
 
