@@ -13,19 +13,19 @@ class Ship extends React.Component{
     constructor(props){
         super(props);
         this.state = {x: window.innerWidth/2, y: window.innerHeight/2};
-        addEventListener('keydown', (e) => {
-            keys.forEach(key => {
+        window.addEventListener('keydown', (e) => {
+            Object.keys(keys).forEach(key => {
                 if (e.key === key) {
-                    key = true;
-                    console.log(`${key} down`);
+                    keys[key] = true;
+                    console.log(keys);
                 }
             });
         })
-        addEventListener('keyup', (e) => {
-            keys.forEach(key => {
+        window.addEventListener('keyup', (e) => {
+            Object.keys(keys).forEach(key => {
                 if (e.key === key) {
-                    key = false;
-                    console.log(`${key} up`);
+                    keys[key] = false;
+                    console.log(keys);
                 }
             });
         })
