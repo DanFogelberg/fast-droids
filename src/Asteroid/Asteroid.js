@@ -38,7 +38,7 @@ class Asteroid extends React.Component{
         background-color: red;
         transform: translateX(${this.state.x}px);
       
-    
+
       `
 
       }

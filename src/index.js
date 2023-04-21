@@ -6,7 +6,7 @@ import Game from './Game/Game';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-// const game = new Game();
+const game = new Game();
 
 
 
@@ -18,11 +18,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // }
 // gameLoop();
 
-root.render(
-  <React.StrictMode>
-   <Game />
-    {/* <Menu /> */}
-  </React.StrictMode>
+root.render(game.render()
+  // <React.StrictMode>
+  //   {game.render()}
+  //   {/* <Menu /> */}
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

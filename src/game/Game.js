@@ -6,17 +6,13 @@ import React from 'react';
 
 const asteroid = new Asteroid();
 
-
-
 class Game extends React.Component{
     
-
-    
-
   constructor(props) {
     super(props)
-  }
 
+    
+  }
 
 
 
@@ -28,12 +24,8 @@ class Game extends React.Component{
     setTimeout(this.gameLoop, 1000);
 
 
-    // this.gameLoop
-
+   
   }
-
-  
-
 
   render(){
     return <div className="game">
