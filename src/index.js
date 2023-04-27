@@ -6,23 +6,18 @@ import Game from './Game/Game';
 import reportWebVitals from './reportWebVitals';
 import Asteroid from './Asteroid/Asteroid';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const game = new Game();
 
 
 
 
-// const gameLoop = () => {
-//   game.gameLoop();
-//   setTimeout(gameLoop, 100);
-
-// }
-// gameLoop();
 root.render(
-  <React.StrictMode>
-    {game.render()}
-  </React.StrictMode>
+  <Game/>
 );
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

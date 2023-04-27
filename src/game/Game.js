@@ -3,31 +3,72 @@ import Ship from '../Ship/Ship';
 import '../css/Game.css'; //Placeholder
 import { useEffect } from 'react';
 import React from 'react';
+import { createContext } from 'react';
 
-const asteroid = new Asteroid();
-const ship = new Ship();
+let frame = createContext(0);
+
+let running = false;
+
+let asteroid = React.createRef();
+let ship = React.createRef();
+
 class Game extends React.Component{
     
   constructor(props) {
     super(props)
+
+
+
+    this.asteroid = React.createRef();
+
+
+    this.asteroids = [];
+    this.asteroids.push(new Asteroid());
+
+
+    
+    if(running == false)
+    {
+      running = true;
+      this.gameLoop(this);
+    }
+    
+
+  
+  
     
   }
 
 
 
 
-  gameLoop(){
 
-    asteroid.update();
-    console.log(asteroid.state.x);
-    setTimeout(this.gameLoop, 1000);
+
+  gameLoop(self){
+
+    //this.asteroid.update();
+    // console.log(this.asteroid.state.x);
+    //this.forceUpdate();
+    //if(self.asteroid.current)self.asteroid.current.update();
+    console.log(asteroid)
+    if(asteroid.current) asteroid.current.update();
+    setTimeout(() => {
+        this.gameLoop()
+    }, 1000);
    
   }
 
   render(){
     return <div className="game">
-      {asteroid.render()}
-      {ship.render()}
+      <Asteroid ref={asteroid}/>
+      <Ship ref={ship}/>
+
+  
+      
+
+
+      
+      
     </div>
   }
 }

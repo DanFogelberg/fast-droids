@@ -3,6 +3,8 @@ import { useState } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 
+
+
 class Asteroid extends React.Component{
     
 
@@ -18,6 +20,16 @@ class Asteroid extends React.Component{
     
     // `
     }
+    update()
+    {
+      console.log("Jag är en uppdaterad asteroid");
+      this.setState({x: this.state.x+1});
+    }
+
+    componentDidMount()
+    {
+      this.setState({x: 10000});
+    }
 
       // update(){
       //   this.AsteroidDiv = styled.div`
@@ -28,7 +40,7 @@ class Asteroid extends React.Component{
       // }
 
 
-      render(state){
+      render(){
 
         return (
           <div 
@@ -36,11 +48,14 @@ class Asteroid extends React.Component{
           onClick= { () => {
             this.state = {x: 1000};
             console.log(this.state.x);
+
             }}>
               {this.state.x}
           </div>
         );
       }
+
+
 
 }
 
