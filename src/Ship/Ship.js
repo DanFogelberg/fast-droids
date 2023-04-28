@@ -29,16 +29,45 @@ class Ship extends React.Component{
                 }
             });
         })
+
+        this.shipDiv = styled.div`
+            color: red;
+            transform: translate(${this.state.x}px, ${this.state.y}px);
+            
+        `
     }
 
     update(){
+        
+        if(keys.w)
+        {
+            this.setState({x: this.state.x + 5});
+        }
+        if(keys.a)
+        {
+            this.setState({x: this.state.x + 5});
+        }
+        if(keys.s)
+        {
+            this.setState({x: this.state.x + 5});
+        }
+        if(keys.d)
+        {
+            this.setState({x: this.state.x + 5});
+        }
+
+        this.shipDiv = styled.div`
+            color: red;
+            transform: translate(${this.state.x}px, ${this.state.y}px);
+            
+        `
     }
 
     render(){
         return (
-            <div>
-                Jag är ett skepp!
-            </div>
+            <this.shipDiv>
+                ^
+            </this.shipDiv>
         )}
 
 }

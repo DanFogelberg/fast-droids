@@ -18,26 +18,15 @@ class Game extends React.Component{
   constructor(props) {
     super(props)
 
-
-
     this.asteroid = React.createRef();
     this.addAsteroid();
     this.addAsteroid();
 
-
-
-
-    
     if(running == false)
     {
       running = true;
       this.gameLoop();
     }
-    
-
-  
-  
-    
   }
 
   addAsteroid()
@@ -49,46 +38,30 @@ class Game extends React.Component{
 
 
 
-  gameLoop(){
-
-    //this.asteroid.update();
-    // console.log(this.asteroid.state.x);
-    //this.forceUpdate();
-    //if(self.asteroid.current)self.asteroid.current.update();
-  
- 
-
-    asteroids.forEach(asteroid => {
+  gameLoop()
+  {
+    asteroids.forEach(asteroid => 
+    {
       if(asteroid.current) asteroid.current.update();
     });
+
+    if(ship.current) ship.current.update();
 
     requestAnimationFrame(() => 
     {
       this.gameLoop()
     });
-
-    // setTimeout(() => {
-    //     this.gameLoop()
-    // }, 30);
-   
   }
 
   render(){
     return <div className="game">
         
-      {asteroids.map((asteroid) => {
-       
-        return <Asteroid ref={asteroid}/>
-      })}
-      {/* <Asteroid ref={asteroid}/> */}
+      {/* {asteroids.map((asteroid) => {
+        return <Asteroid ref={asteroid}/>  
+      })} */}
+      
       <Ship ref={ship}/>
 
-  
-      
-
-
-      
-      
     </div>
   }
 }

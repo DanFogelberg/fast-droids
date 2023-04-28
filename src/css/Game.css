@@ -11,4 +11,5 @@ body {
   height: 100vh;
   background-color: black;
   z-index: 0;
+  overflow: hidden;
 }
