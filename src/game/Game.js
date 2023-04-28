@@ -55,12 +55,12 @@ class Game extends React.Component{
 
   render(){
     return <div className="game">
-        
-      {/* {asteroids.map((asteroid) => {
+        <Ship ref={ship}/>
+      {asteroids.map((asteroid) => {
         return <Asteroid ref={asteroid}/>  
-      })} */}
+      })}
       
-      <Ship ref={ship}/>
+      
 
     </div>
   }

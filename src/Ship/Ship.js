@@ -12,7 +12,13 @@ class Ship extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {x: window.innerWidth/2, y: window.innerHeight/2};
+        this.state = {x: window.innerWidth/2, y: window.innerHeight/2, rotation: 0};
+
+        this.xSpeed = 0;
+        this.ySpeed = 0;
+        this.acceleration = 1;
+        this.rotationSpeed = 1;
+
         window.addEventListener('keydown', (e) => {
             Object.keys(keys).forEach(key => {
                 if (e.key === key) {
@@ -30,9 +36,16 @@ class Ship extends React.Component{
             });
         })
 
+        
+
         this.shipDiv = styled.div`
             color: red;
-            transform: translate(${this.state.x}px, ${this.state.y}px);
+            transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${5}deg);
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            vertical-align: middle;
+            display: table-cell;
             
         `
     }
@@ -41,24 +54,34 @@ class Ship extends React.Component{
         
         if(keys.w)
         {
-            this.setState({x: this.state.x + 5});
+            
         }
         if(keys.a)
         {
-            this.setState({x: this.state.x + 5});
+            this.setState({rotation: this.state.rotation - this.rotationSpeed});
         }
         if(keys.s)
         {
-            this.setState({x: this.state.x + 5});
+            
         }
         if(keys.d)
         {
-            this.setState({x: this.state.x + 5});
+            this.setState({rotation: this.state.rotation + this.rotationSpeed});
         }
+
+        this.setState({x: this.state.x + this.xSpeed});
+        this.setState({x: this.state.y + this.ySpeed});
 
         this.shipDiv = styled.div`
             color: red;
-            transform: translate(${this.state.x}px, ${this.state.y}px);
+            transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            vertical-align: middle;
+            display: table-cell;
+     
+
             
         `
     }

@@ -26,11 +26,12 @@ class Asteroid extends React.Component{
     }
     update()
     {
-      console.log("Jag är en uppdaterad asteroid");
-      console.log(this);
+      
       this.setState({x: this.state.x + this.xSpeed});
       this.setState({y: this.state.y + this.ySpeed});
       this.setState({rotation: this.state.rotation + this.rotationSpeed})
+      if(this.state.rotation > 360) this.setState({rotation: this.state.rotation - 360})
+      if(this.state.rotation < -360) this.setState({rotation: this.state.rotation + 360})
 
       this.AsteroidDiv = styled.div`
       width: 100px;
