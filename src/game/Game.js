@@ -9,6 +9,7 @@ let frame = createContext(0);
 
 let running = false;
 
+let asteroids = [];
 let asteroid = React.createRef();
 let ship = React.createRef();
 
@@ -20,10 +21,10 @@ class Game extends React.Component{
 
 
     this.asteroid = React.createRef();
+    this.addAsteroid();
+    this.addAsteroid();
 
 
-    this.asteroids = [];
-    this.asteroids.push(new Asteroid());
 
 
     
@@ -39,6 +40,10 @@ class Game extends React.Component{
     
   }
 
+  addAsteroid()
+  {
+    asteroids.push(React.createRef());
+  }
 
 
 
@@ -50,8 +55,13 @@ class Game extends React.Component{
     // console.log(this.asteroid.state.x);
     //this.forceUpdate();
     //if(self.asteroid.current)self.asteroid.current.update();
-    console.log(asteroid)
-    if(asteroid.current) asteroid.current.update();
+  
+ 
+
+    asteroids.forEach(asteroid => {
+      if(asteroid.current) asteroid.current.update();
+    });
+
     requestAnimationFrame(() => 
     {
       this.gameLoop()
@@ -65,7 +75,12 @@ class Game extends React.Component{
 
   render(){
     return <div className="game">
-      <Asteroid ref={asteroid}/>
+        
+      {asteroids.map((asteroid) => {
+       
+        return <Asteroid ref={asteroid}/>
+      })}
+      {/* <Asteroid ref={asteroid}/> */}
       <Ship ref={ship}/>
 
   
