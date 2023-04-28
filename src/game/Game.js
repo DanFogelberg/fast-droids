@@ -30,7 +30,7 @@ class Game extends React.Component{
     if(running == false)
     {
       running = true;
-      this.gameLoop(this);
+      this.gameLoop();
     }
     
 
@@ -44,7 +44,7 @@ class Game extends React.Component{
 
 
 
-  gameLoop(self){
+  gameLoop(){
 
     //this.asteroid.update();
     // console.log(this.asteroid.state.x);
@@ -52,9 +52,14 @@ class Game extends React.Component{
     //if(self.asteroid.current)self.asteroid.current.update();
     console.log(asteroid)
     if(asteroid.current) asteroid.current.update();
-    setTimeout(() => {
-        this.gameLoop()
-    }, 1000);
+    requestAnimationFrame(() => 
+    {
+      this.gameLoop()
+    });
+
+    // setTimeout(() => {
+    //     this.gameLoop()
+    // }, 30);
    
   }
 
