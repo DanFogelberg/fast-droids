@@ -17,11 +17,16 @@ class Asteroid extends React.Component{
       this.xSpeed = 0.5;
       this.ySpeed = 0.5;
       this.rotationSpeed = 0.5;
+      this.width = 100;
+      this.height = 100;
 
       this.AsteroidDiv = styled.div`
+      position: fixed;
       width: 100px;
+      height: 100px;
       background-color: red;
-      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);   
+      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
+         
       `
     }
     update()
@@ -33,12 +38,25 @@ class Asteroid extends React.Component{
       if(this.state.rotation > 360) this.setState({rotation: this.state.rotation - 360})
       if(this.state.rotation < -360) this.setState({rotation: this.state.rotation + 360})
 
+
+      if(this.state.x > window.innerWidth) this.setState({x: 0-this.width});
+      if(this.state.x < 0-this.width) this.setState({x: window.innerWidth});
+      if(this.state.y > window.innerHeight) this.setState({y: 0-this.height});
+      if(this.state.y < 0-this.height) this.setState({y: window.innerHeight});
+
+
+
       this.AsteroidDiv = styled.div`
-      width: 100px;
+      position: fixed;
+      width: ${this.width}px;
+      height: ${this.height}px;
       background-color: red;
       transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
       
+      
       `
+
+      
     }
 
     componentDidMount()
@@ -53,12 +71,8 @@ class Asteroid extends React.Component{
         return (
           <this.AsteroidDiv 
           className="asteroid"  
-          onClick= { () => {
-            this.state = {x: 1000};
-            console.log(this.state.x);
-
-            }}>
-              {this.state.x}
+          >
+             
           </this.AsteroidDiv>
         );
       }
