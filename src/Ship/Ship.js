@@ -5,7 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const keys = {
-    'w':false, 'a':false, 's':false, 'd':false, 'space': false
+    'w':false, 'a':false, 's':false, 'd':false, ' ': false
 };
 
 
@@ -14,7 +14,7 @@ class Ship extends React.Component{
 
     constructor(props){
         super(props);
-              
+        this.addBullet = props.addBullet;        
 
         this.state = {x: window.innerWidth/2, y: window.innerHeight/2, rotation: 0}; //Rotation in rad
         this.xSpeed = 0;
@@ -26,10 +26,13 @@ class Ship extends React.Component{
         this.speedDecay = 0.95;
         this.collisionRadius = 25;
 
+        this.fireKeyWasDown = false;
+
         window.addEventListener('keydown', (e) => {
             Object.keys(keys).forEach(key => {
                 if (e.key === key) {
                     keys[key] = true;
+                   
                 }
             });
         })
@@ -60,8 +63,6 @@ class Ship extends React.Component{
         if(keys.w)
         {
             
-            this.props.addBullet(this.state.x + this.width/2,this.state.y + this.height/2);
-
             this.xSpeed =  this.xSpeed + this.acceleration * Math.sin(this.state.rotation);
             this.ySpeed =  this.ySpeed - this.acceleration * Math.cos(this.state.rotation);
         }
@@ -78,6 +79,15 @@ class Ship extends React.Component{
         {
             this.setState({rotation: this.state.rotation + this.rotationSpeed});
         }
+        if(keys[" "])
+        {
+            if(this.fireKeyWasDown === false)
+            {
+                this.fireKeyWasDown = true;
+                this.addBullet(this.state.x + this.width/2,this.state.y + this.height/2, this.state.rotation);
+            }
+        }else this.fireKeyWasDown = false;
+  
 
         
         this.setState({x: this.state.x + this.xSpeed});

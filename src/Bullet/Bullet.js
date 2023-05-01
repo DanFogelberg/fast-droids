@@ -17,10 +17,10 @@ class Bullet extends React.Component{
       this.width = 10;
       this.height = 10;
       this.collisionRadius = 50;
-      this.state = {x: props.x - this.width/2, y: props.y - this.height/2, rotation: 0};
+      this.state = {x: props.x - this.width/2, y: props.y - this.height/2, rotation: props.rotation};
       this.speed = 10;
       this.xSpeed =  this.speed * Math.sin(this.state.rotation);
-      this.ySpeed =  this.speed * Math.cos(this.state.rotation);
+      this.ySpeed =  -this.speed * Math.cos(this.state.rotation);
 
       this.BulletDiv = styled.div`
       position: fixed;

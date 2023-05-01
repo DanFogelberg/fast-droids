@@ -42,7 +42,7 @@ const Game = () => {
     asteroids.push(React.createRef())
     setAsteroids(asteroids);
     //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
-    setTest(test+1); 
+ 
    
     
   }
@@ -58,17 +58,16 @@ const Game = () => {
     const newBullets = bullets;
     setBullets(newBullets);
     //Since this is a functional component this function will not loop on an object. That means it will not have access to the components states. As such I cannot make new arrays for the state array, as this function will still access the old array. I also can't force a rerender by updating any states, as this function no longer can access them. Need to change it back to a class function again
-    
-    
-    setTest(test+1); 
+    console.log("Hmm");
+
    
     
   }
     
   
   const gameLoop = () =>
+  setTest(test+1); 
     {       
-    
     asteroids.forEach(asteroid => 
     {
       if(asteroid.current) asteroid.current.update();
@@ -105,10 +104,12 @@ const Game = () => {
               delete asteroids[asteroidId];
               setAsteroids(asteroids);
               //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
-              setTest(test+1); 
+             
           }
         }
+       
       })
+      
 
     })
 
