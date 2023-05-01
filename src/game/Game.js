@@ -60,7 +60,7 @@ const Game = () => {
     //Since this is a functional component this function will not loop on an object. That means it will not have access to the components states. As such I cannot make new arrays for the state array, as this function will still access the old array. I also can't force a rerender by updating any states, as this function no longer can access them. Need to change it back to a class function again
     
     
-    //setTest(test+1); 
+    setTest(test+1); 
    
     
   }

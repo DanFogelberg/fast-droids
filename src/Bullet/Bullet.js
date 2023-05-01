@@ -12,16 +12,15 @@ class Bullet extends React.Component{
     constructor(props) {
       super(props);
       
-      this.state = {x: props.x, y: props.y, rotation: 0};
-
-      //Random values here
-      this.xSpeed = 0.5;
-      this.ySpeed = 0.5;
+      
       this.rotationSpeed = 10;
       this.width = 10;
       this.height = 10;
       this.collisionRadius = 50;
-     
+      this.state = {x: props.x - this.width/2, y: props.y - this.height/2, rotation: 0};
+      this.speed = 10;
+      this.xSpeed =  this.speed * Math.sin(this.state.rotation);
+      this.ySpeed =  this.speed * Math.cos(this.state.rotation);
 
       this.BulletDiv = styled.div`
       position: fixed;
@@ -37,6 +36,8 @@ class Bullet extends React.Component{
     update()
     {
       
+
+
       this.setState({x: this.state.x + this.xSpeed});
       this.setState({y: this.state.y + this.ySpeed});
       this.setState({rotation: this.state.rotation + this.rotationSpeed})

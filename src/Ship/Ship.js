@@ -5,7 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const keys = {
-    'w':false, 'a':false, 's':false, 'd':false,
+    'w':false, 'a':false, 's':false, 'd':false, 'space': false
 };
 
 
@@ -21,10 +21,10 @@ class Ship extends React.Component{
         this.ySpeed = 0;
         this.acceleration = 0.5;
         this.rotationSpeed = 0.1;
-        this.width = 100;
-        this.height = 100;
+        this.width = 50;
+        this.height = 50;
         this.speedDecay = 0.95;
-        this.collisionRadius = 50;
+        this.collisionRadius = 25;
 
         window.addEventListener('keydown', (e) => {
             Object.keys(keys).forEach(key => {
@@ -45,8 +45,8 @@ class Ship extends React.Component{
 
         this.shipDiv = styled.div`
             color: red;
-            width: 100px;
-            height: 100px;
+            width: ${this.width}px;
+            height: ${this.height}px;
             transform: translate(${this.state.x}px, ${this.state.y}px) rotate${this.state.rotation}rad); 
             text-align: center;
             vertical-align: middle;
@@ -59,7 +59,9 @@ class Ship extends React.Component{
         
         if(keys.w)
         {
-            this.props.addBullet(this.state.x,this.state.y);
+            
+            this.props.addBullet(this.state.x + this.width/2,this.state.y + this.height/2);
+
             this.xSpeed =  this.xSpeed + this.acceleration * Math.sin(this.state.rotation);
             this.ySpeed =  this.ySpeed - this.acceleration * Math.cos(this.state.rotation);
         }
@@ -94,8 +96,8 @@ class Ship extends React.Component{
             
             display: table-cell;
             color: red;
-            width: 100px;
-            height: 100px;
+            width: ${this.width}px;
+            height: ${this.height}px;
             transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad);
             
             text-align: center;
