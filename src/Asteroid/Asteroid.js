@@ -11,7 +11,7 @@ class Asteroid extends React.Component{
 
     constructor(props) {
       super(props);
-      this.state = {x: 100, y: 0, rotation: 0};
+      this.state = {x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, rotation: 0};
 
       //Random values here
       this.xSpeed = 0.5;

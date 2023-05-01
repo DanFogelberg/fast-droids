@@ -1,48 +1,62 @@
+import { unmountComponentAtNode } from 'react-dom';
 import Asteroid from '../Asteroid/Asteroid';
 import Ship from '../Ship/Ship';
 import '../css/Game.css'; //Placeholder
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
+import { ReactDOM } from 'react';
+
+
+
 
 
 let running = false;
 
-let asteroids = [];
+
 let ships = [];
+//let asteroids = [];
 
-class Game extends React.Component{
+let test = false;
+
+const Game = ({ handleClick, children }) => {
+  
+  const [test, setTest] = useState(0);
+  const [asteroids, setAsteroids] = useState([React.createRef(), React.createRef()]);
+
+  useEffect(() => {
+    addShip();
+    //addAsteroid();
+    //addAsteroid();
     
-  constructor(props) {
-    super(props)
-
-    this.asteroid = React.createRef();
-    this.addAsteroid();
-    this.addAsteroid();
-    this.addShip();
-
+    
     if(running === false)
     {
       running = true;
-      this.gameLoop();
+      gameLoop();
     }
+  }, [])
+  // this.state = {reRender: false, asteroids: []};
+    
+  const addAsteroid = () =>
+  {
+   
+    setAsteroids([...asteroids, React.createRef()]);
+   
+    
   }
 
-  addAsteroid()
+  const addShip = () =>
   {
-    asteroids.push(React.createRef());
+     ships.push(React.createRef());
   }
-
-  addShip()
+    
+  
+    const gameLoop = () =>
   {
-    ships.push(React.createRef());
-  }
+    setTest(test+1);
+    
+  
 
-
-
-
-
-  gameLoop()
-  {
     asteroids.forEach(asteroid => 
     {
       if(asteroid.current) asteroid.current.update();
@@ -54,9 +68,9 @@ class Game extends React.Component{
 
 
     //Check collisions
-    asteroids.forEach(asteroid => 
+    asteroids.forEach((asteroid, asteroidId) => 
     {
-      ships.forEach(ship => 
+      ships.forEach((ship, shipId) => 
       {
         if(asteroid.current && ship.current){
           const asteroidCenterX = asteroid.current.state.x+asteroid.current.width/2;
@@ -67,11 +81,11 @@ class Game extends React.Component{
 
           const distanceX = Math.abs(asteroidCenterX - shipCenterX);
           const distanceY = Math.abs(asteroidCenterY - shipCenterY);
-          const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))
+          const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
           if(distance <= collisionDistance)
           {
-            
-            console.log("Death");
+              delete asteroids[asteroidId];
+              setAsteroids([...asteroids]);
           }
         }
       })
@@ -80,25 +94,43 @@ class Game extends React.Component{
 
     requestAnimationFrame(() => 
     {
-      this.gameLoop()
+      gameLoop()
     });
   }
 
-  render(){
-    return <div className="game">
-       
-      {asteroids.map((asteroid) => {
-        return <Asteroid ref={asteroid}/>  
+
+  return <div className="game">
+    
+      {asteroids.map((asteroid, asteroidId) => {
+
+       if(asteroid)return <Asteroid ref={asteroid} key={asteroidId} />  
       })}
        
-      {ships.map((ship) => {
-        return <Ship ref={ship}/>  
+      {ships.map((ship, shipId) => {
+        return <Ship ref={ship} key={shipId+1000}/>  
       })}
       
       
 
     </div>
-  }
-}
+};
+
+
+
+
+
+
+    
+
+
+  
+
+
+
+
+  
+
+
+
 
 export default Game;

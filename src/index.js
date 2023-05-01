@@ -8,13 +8,12 @@ import Asteroid from './Asteroid/Asteroid';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const game = new Game();
 
 
 
 
 root.render(
-  <Game/>
+  <Game />
 );
 
 
