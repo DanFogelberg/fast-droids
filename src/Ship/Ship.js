@@ -14,8 +14,9 @@ class Ship extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {x: window.innerWidth/2, y: window.innerHeight/2, rotation: 0}; //Rotation in rad
+              
 
+        this.state = {x: window.innerWidth/2, y: window.innerHeight/2, rotation: 0}; //Rotation in rad
         this.xSpeed = 0;
         this.ySpeed = 0;
         this.acceleration = 0.5;
@@ -46,12 +47,11 @@ class Ship extends React.Component{
             color: red;
             width: 100px;
             height: 100px;
-            transform: translate(${this.state.x}px, ${this.state.y}px) rotate${this.state.rotation}rad);
-            
+            transform: translate(${this.state.x}px, ${this.state.y}px) rotate${this.state.rotation}rad); 
             text-align: center;
             vertical-align: middle;
             display: table-cell;
-            
+
         `
     }
 
@@ -59,6 +59,7 @@ class Ship extends React.Component{
         
         if(keys.w)
         {
+            this.props.addBullet(this.state.x,this.state.y);
             this.xSpeed =  this.xSpeed + this.acceleration * Math.sin(this.state.rotation);
             this.ySpeed =  this.ySpeed - this.acceleration * Math.cos(this.state.rotation);
         }
@@ -98,11 +99,7 @@ class Ship extends React.Component{
             transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad);
             
             text-align: center;
-            vertical-align: middle;
-            
-     
-
-            
+            vertical-align: middle;     
         `
     }
 

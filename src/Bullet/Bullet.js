@@ -11,7 +11,8 @@ class Bullet extends React.Component{
 
     constructor(props) {
       super(props);
-      this.state = {x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, rotation: 0};
+      
+      this.state = {x: props.x, y: props.y, rotation: 0};
 
       //Random values here
       this.xSpeed = 0.5;
