@@ -18,7 +18,7 @@ let ships = [];
 
 let test = false;
 
-const Game = ({ handleClick, children }) => {
+const Game = () => {
   
   const [test, setTest] = useState(0);
   const [asteroids, setAsteroids] = useState([React.createRef(), React.createRef()]);
@@ -84,6 +84,7 @@ const Game = ({ handleClick, children }) => {
           const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
           if(distance <= collisionDistance)
           {
+              //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
               delete asteroids[asteroidId];
               setAsteroids([...asteroids]);
           }
