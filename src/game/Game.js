@@ -3,15 +3,12 @@ import Ship from '../Ship/Ship';
 import '../css/Game.css'; //Placeholder
 import { useEffect } from 'react';
 import React from 'react';
-import { createContext } from 'react';
 
-let frame = createContext(0);
 
 let running = false;
 
 let asteroids = [];
-let asteroid = React.createRef();
-let ship = React.createRef();
+let ships = [];
 
 class Game extends React.Component{
     
@@ -21,8 +18,9 @@ class Game extends React.Component{
     this.asteroid = React.createRef();
     this.addAsteroid();
     this.addAsteroid();
+    this.addShip();
 
-    if(running == false)
+    if(running === false)
     {
       running = true;
       this.gameLoop();
@@ -32,6 +30,11 @@ class Game extends React.Component{
   addAsteroid()
   {
     asteroids.push(React.createRef());
+  }
+
+  addShip()
+  {
+    ships.push(React.createRef());
   }
 
 
@@ -45,13 +48,15 @@ class Game extends React.Component{
       if(asteroid.current) asteroid.current.update();
     });
 
-    if(ship.current) ship.current.update();
+    ships.forEach(ship => {
+      if(ship.current) ship.current.update();
+    }) 
 
 
     //Check collisions
     asteroids.forEach(asteroid => 
     {
-      if(ship)
+      ships.forEach(ship => 
       {
         if(asteroid.current && ship.current){
           const asteroidCenterX = asteroid.current.state.x+asteroid.current.width/2;
@@ -65,10 +70,11 @@ class Game extends React.Component{
           const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))
           if(distance <= collisionDistance)
           {
+            
             console.log("Death");
           }
         }
-      }
+      })
 
     })
 
@@ -84,7 +90,10 @@ class Game extends React.Component{
       {asteroids.map((asteroid) => {
         return <Asteroid ref={asteroid}/>  
       })}
-       <Ship ref={ship}/>
+       
+      {ships.map((ship) => {
+        return <Ship ref={ship}/>  
+      })}
       
       
 
