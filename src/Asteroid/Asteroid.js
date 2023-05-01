@@ -17,18 +17,18 @@ class Asteroid extends React.Component{
       this.xSpeed = 0.5;
       this.ySpeed = 0.5;
       this.rotationSpeed = 0.5;
-      this.width = 100;
-      this.height = 100;
-      this.collisionRadius = 50;
+      this.width = props.width;
+      this.height = props.height;
+      this.collisionRadius = props.width/2;
      
 
       this.AsteroidDiv = styled.div`
       position: fixed;
       top: 0px;
       left: 0px;
-      width: 100px;
-      height: 100px;
-      background-color: red;
+      width: ${this.width}px;
+      height: ${this.height}px;
+      background-color: ${props.color};
       `
       this.positionStyle =
       {

@@ -12,11 +12,11 @@ class Bullet extends React.Component{
     constructor(props) {
       super(props);
       
-      this.lifeTime = 60;
+      this.lifeTime = 150;
       this.rotationSpeed = 10;
       this.width = 10;
       this.height = 10;
-      this.collisionRadius = 50;
+      this.collisionRadius = this.width/2;
       this.state = {x: props.x - this.width/2, y: props.y - this.height/2, rotation: props.rotation};
       this.speed = 10;
       this.xSpeed =  this.speed * Math.sin(this.state.rotation);

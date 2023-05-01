@@ -109,7 +109,7 @@ class Ship extends React.Component{
         {
           transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad)`
         }
-        console.log(this.state.rotation)
+
     }
 
     render(){

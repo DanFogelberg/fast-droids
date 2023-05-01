@@ -20,8 +20,8 @@ const Game = () => {
 
     addShip();
     addAsteroid();
-    addAsteroid();
-    addAsteroid();
+    addAsteroid(200, 50, "blue");
+    addAsteroid(666, 666, "white");
     addAsteroid();
 
     
@@ -32,12 +32,12 @@ const Game = () => {
       gameLoop();
     }
   }, [])
-  // this.state = {reRender: false, asteroids: []};
+
     
-  const addAsteroid = () =>
+  const addAsteroid = (width = 50, height = 50, color = "red") =>
   {
     
-    asteroids.push(React.createRef())
+    asteroids.push({ref: React.createRef(), props: {width, height, color}})
     setAsteroids(asteroids);
     //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
  
@@ -68,7 +68,7 @@ const Game = () => {
     {       
     asteroids.forEach(asteroid => 
     {
-      if(asteroid.current) asteroid.current.update();
+      if(asteroid.ref.current) asteroid.ref.current.update();
     });
 
     ships.forEach(ship => {
@@ -80,11 +80,11 @@ const Game = () => {
       if(bullet.ref.current) 
       {
         bullet.ref.current.update();
-        // if(bullet.ref.current.lifeTime <= 0)
-        // {
-        //   delete bullets[bulletId];
-        //   setBullets(bullets);
-        // }
+        if(bullet.ref.current.lifeTime <= 0)
+        {
+          delete bullets[bulletId];
+          setBullets(bullets);
+        }
       }
     })
 
@@ -94,12 +94,12 @@ const Game = () => {
     {
       ships.forEach((ship, shipId) => 
       {
-        if(asteroid.current && ship.current){
-          const asteroidCenterX = asteroid.current.state.x+asteroid.current.width/2;
-          const asteroidCenterY = asteroid.current.state.y+asteroid.current.height/2;
+        if(asteroid.ref.current && ship.current){
+          const asteroidCenterX = asteroid.ref.current.state.x+asteroid.ref.current.width/2;
+          const asteroidCenterY = asteroid.ref.current.state.y+asteroid.ref.current.height/2;
           const shipCenterX = ship.current.state.x+ship.current.width/2;
           const shipCenterY = ship.current.state.y+ship.current.height/2;
-          const collisionDistance = asteroid.current.collisionRadius + ship.current.collisionRadius;
+          const collisionDistance = asteroid.ref.current.collisionRadius + ship.current.collisionRadius;
 
           const distanceX = Math.abs(asteroidCenterX - shipCenterX);
           const distanceY = Math.abs(asteroidCenterY - shipCenterY);
@@ -107,13 +107,40 @@ const Game = () => {
           if(distance <= collisionDistance)
           {
               //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
-              delete asteroids[asteroidId];
-              setAsteroids(asteroids);
+              
               //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
              
           }
         }
        
+      })
+      bullets.forEach((bullet, bulletId) => 
+      {
+        
+        if(asteroid.ref.current && bullet.ref.current)
+        {
+          const asteroidCenterX = asteroid.ref.current.state.x+asteroid.ref.current.width/2;
+          const asteroidCenterY = asteroid.ref.current.state.y+asteroid.ref.current.height/2;
+          const bulletCenterX = bullet.ref.current.state.x+bullet.ref.current.width/2;
+          const bulletCenterY = bullet.ref.current.state.y+bullet.ref.current.height/2;
+          const collisionDistance = asteroid.ref.current.collisionRadius + bullet.ref.current.collisionRadius;
+
+          const distanceX = Math.abs(asteroidCenterX - bulletCenterX);
+          const distanceY = Math.abs(asteroidCenterY - bulletCenterY);
+          const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+          
+          
+          if(distance <= collisionDistance)
+          {
+              delete asteroids[asteroidId];
+              setAsteroids(asteroids);
+              delete bullets[bulletId];
+              setBullets(bullets);
+              //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
+              
+              //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
+          }
+        }
       })
       
 
@@ -128,9 +155,8 @@ const Game = () => {
 
   return <div className="game">
     
-      {asteroids.map((asteroid, asteroidId) => {
-        
-        if(asteroid)return <Asteroid ref={asteroid} key={asteroidId} />  
+      {asteroids.map((asteroid, asteroidId) => {        
+        if(asteroid)return <Asteroid ref={asteroid.ref} key={asteroidId} {...asteroid.props} />  
       })}
        
       {ships.map((ship, shipId) => {
