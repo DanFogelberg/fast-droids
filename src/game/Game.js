@@ -1,16 +1,16 @@
-import { unmountComponentAtNode } from 'react-dom';
 import Asteroid from '../Asteroid/Asteroid';
+import Bullet from '../Bullet/Bullet';
 import Ship from '../Ship/Ship';
 import '../css/Game.css'; //Placeholder
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { ReactDOM } from 'react';
 
 
 
 
 
-let running = false;
+
+
 
 
 let ships = [];
@@ -19,19 +19,23 @@ let ships = [];
 let test = false;
 
 const Game = () => {
-  
+  const [running, setRunning] = useState(false);
   const [test, setTest] = useState(0);
-  const [asteroids, setAsteroids] = useState([React.createRef(), React.createRef()]);
+  const [asteroids, setAsteroids] = useState([]);
+  const [bullets, setBullets] = useState([]);
 
   useEffect(() => {
+
     addShip();
-    //addAsteroid();
-    //addAsteroid();
+    addAsteroid();
+    addAsteroid();
+    addAsteroid();
+    addAsteroid();
     
     
     if(running === false)
     {
-      running = true;
+      setRunning(true);
       gameLoop();
     }
   }, [])
@@ -39,8 +43,18 @@ const Game = () => {
     
   const addAsteroid = () =>
   {
+    asteroids.push(React.createRef());
+    setAsteroids(asteroids);
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    //The following should do the same thing as far as I can tell. But doesn't really.///////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // const newAsteroid = React.createRef();
+    // setAsteroids(
+    //   [
+    //     ...asteroids, React.createRef()
+    //   ]
+    // );
    
-    setAsteroids([...asteroids, React.createRef()]);
    
     
   }
@@ -51,12 +65,8 @@ const Game = () => {
   }
     
   
-    const gameLoop = () =>
-  {
-    setTest(test+1);
-    
-  
-
+  const gameLoop = () =>
+    {       
     asteroids.forEach(asteroid => 
     {
       if(asteroid.current) asteroid.current.update();
@@ -110,6 +120,8 @@ const Game = () => {
       {ships.map((ship, shipId) => {
         return <Ship ref={ship} key={shipId+1000}/>  
       })}
+
+      {/* <Bullet/> */}
       
       
 
