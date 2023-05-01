@@ -31,6 +31,9 @@ const Game = () => {
     addAsteroid();
     addAsteroid();
     addAsteroid();
+    addBullet();
+    addBullet();
+    addBullet();
     
     
     if(running === false)
@@ -45,9 +48,9 @@ const Game = () => {
   {
     asteroids.push(React.createRef());
     setAsteroids(asteroids);
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    //The following should do the same thing as far as I can tell. But doesn't really.///////////
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // The following should do the same thing as far as I can tell, and would be better syntax. But doesn't. ///////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // const newAsteroid = React.createRef();
     // setAsteroids(
     //   [
@@ -63,6 +66,12 @@ const Game = () => {
   {
      ships.push(React.createRef());
   }
+
+  const addBullet = () => 
+  {
+    bullets.push(React.createRef());
+    setBullets(bullets);
+  }
     
   
   const gameLoop = () =>
@@ -75,6 +84,11 @@ const Game = () => {
     ships.forEach(ship => {
       if(ship.current) ship.current.update();
     }) 
+
+    bullets.forEach(bullet => 
+    {
+      if(bullet.current) bullet.current.update();
+    })
 
 
     //Check collisions
@@ -121,7 +135,10 @@ const Game = () => {
         return <Ship ref={ship} key={shipId+1000}/>  
       })}
 
-      {/* <Bullet/> */}
+      
+      {bullets.map((bullet, bulletId) => {
+        return <Bullet ref={bullet} key={bulletId+1100}/>  
+      })}
       
       
 

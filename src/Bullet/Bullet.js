@@ -1,72 +1,81 @@
-import { useEffect, useState } from 'react';
+//import '../css/Asteroid.css'; //Placeholder
+import { useState } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 
 
 
-
-let ships = [];
-//let asteroids = [];
-
-let test = false;
-
-const Bullet = () => {
-  
-  const [test, setTest] = useState(0);
-  const [position, setPosition] = useState({x: 0, y: 0});
-  const speedX = 0.5;
-  const speedY = 0.5;
-  const rotation = 0;
-
-  const width = 10;
-  const height = 10;
-
-  let bulletDiv = styled.div`
-  width = ${width};
-  height = ${height};
-  `
-
-
-  useEffect(() => {
-    console.log("bullet");
-  }, [])
-
-  const update = () =>
-  {
-    setPosition({x: position.x+speedX, y: position.y+speedY});
-    // this.setState({x: this.state.x + this.xSpeed});
-    // this.setState({y: this.state.y + this.ySpeed});
-    // this.setState({rotation: this.state.rotation + this.rotationSpeed})
-    // if(this.state.rotation > 360) this.setState({rotation: this.state.rotation - 360})
-    // if(this.state.rotation < -360) this.setState({rotation: this.state.rotation + 360})
-
-
-    if(position.x > window.innerWidth) setPosition({x: 0-width});
-    if(position.x < 0 - width) setPosition({x: window.innerWidth});
-    if(position.y > window.innerHeight) setPosition({y: 0-height});
-    if(position.y < 0-height) this.setPosition({y: window.innerHeight});
-
-
-
-    bulletDiv = styled.div`
-    position: fixed;
-    width: ${this.width}px;
-    height: ${this.height}px;
-    background-color: red;
-    transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
+class Bullet extends React.Component{
     
     
-    `
-  }
-    
-    
-  return <div className="bullet">
-    
-      HGEEJ
+
+    constructor(props) {
+      super(props);
+      this.state = {x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, rotation: 0};
+
+      //Random values here
+      this.xSpeed = 0.5;
+      this.ySpeed = 0.5;
+      this.rotationSpeed = 10;
+      this.width = 10;
+      this.height = 10;
+      this.collisionRadius = 50;
+     
+
+      this.BulletDiv = styled.div`
+      position: fixed;
+      width: ${this.width}px;
+      height: ${this.height}px;
+      background-color: orange;
+      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
+         
+      `
+    }
+    update()
+    {
+      
+      this.setState({x: this.state.x + this.xSpeed});
+      this.setState({y: this.state.y + this.ySpeed});
+      this.setState({rotation: this.state.rotation + this.rotationSpeed})
+      if(this.state.rotation > 360) this.setState({rotation: this.state.rotation - 360})
+      if(this.state.rotation < -360) this.setState({rotation: this.state.rotation + 360})
+
+
+      if(this.state.x > window.innerWidth) this.setState({x: 0-this.width});
+      if(this.state.x < 0-this.width) this.setState({x: window.innerWidth});
+      if(this.state.y > window.innerHeight) this.setState({y: 0-this.height});
+      if(this.state.y < 0-this.height) this.setState({y: window.innerHeight});
+
+
+
+      this.BulletDiv = styled.div`
+      position: fixed;
+      width: ${this.width}px;
+      height: ${this.height}px;
+      background-color: orange;
+      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
       
       
+      `
 
-    </div>
-};
+      
+    }
+
+
+
+
+
+      render(){
+
+        return (
+          <this.BulletDiv></this.BulletDiv>
+        );
+      }
+
+
+
+}
+
+
 
 export default Bullet;
