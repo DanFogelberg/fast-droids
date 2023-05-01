@@ -29,9 +29,12 @@ class Bullet extends React.Component{
       width: ${this.width}px;
       height: ${this.height}px;
       background-color: orange;
-      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
-         
       `
+
+      this.positionStyle = {
+        color: 'blue',
+      };
+      
     }
     update()
     {
@@ -52,29 +55,20 @@ class Bullet extends React.Component{
 
 
 
-      this.BulletDiv = styled.div`
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      width: ${this.width}px;
-      height: ${this.height}px;
-      background-color: orange;
-      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
-      
-      
-      `
-
+      this.positionStyle =
+      {
+        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`
+      }
       
     }
-
-
+    
 
 
 
       render(){
 
         return (
-          <this.BulletDiv></this.BulletDiv>
+          <this.BulletDiv style={this.positionStyle} ></this.BulletDiv>
         );
       }
 

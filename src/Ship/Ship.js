@@ -50,12 +50,16 @@ class Ship extends React.Component{
             color: red;
             width: ${this.width}px;
             height: ${this.height}px;
-            transform: translate(${this.state.x}px, ${this.state.y}px) rotate${this.state.rotation}rad); 
             text-align: center;
             vertical-align: middle;
             display: table-cell;
 
         `
+
+        this.positionStyle =
+        {
+          transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`
+        }
     }
 
     update(){
@@ -95,29 +99,22 @@ class Ship extends React.Component{
         this.xSpeed = this.xSpeed * this.speedDecay;
         this.ySpeed = this.ySpeed * this.speedDecay;
 
-        //Screenw wrapping
+        //Screen wrapping
         if(this.state.x > window.innerWidth) this.setState({x: 0-this.width});
         if(this.state.x < 0-this.width) this.setState({x: window.innerWidth});
         if(this.state.y > window.innerHeight) this.setState({y: 0-this.height});
         if(this.state.y < 0-this.height) this.setState({y: window.innerHeight});
 
-
-        this.shipDiv = styled.div`
-            
-            display: table-cell;
-            color: red;
-            width: ${this.width}px;
-            height: ${this.height}px;
-            transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad);
-            
-            text-align: center;
-            vertical-align: middle;     
-        `
+        this.positionStyle =
+        {
+          transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad)`
+        }
+        console.log(this.state.rotation)
     }
 
     render(){
         return (
-            <this.shipDiv>
+            <this.shipDiv style={this.positionStyle}>
                 ^
             </this.shipDiv>
         )}

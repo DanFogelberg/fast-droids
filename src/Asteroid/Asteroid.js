@@ -29,9 +29,11 @@ class Asteroid extends React.Component{
       width: 100px;
       height: 100px;
       background-color: red;
-      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
-         
       `
+      this.positionStyle =
+      {
+        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`
+      }
     }
     update()
     {
@@ -50,17 +52,11 @@ class Asteroid extends React.Component{
 
 
 
-      this.AsteroidDiv = styled.div`
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      width: ${this.width}px;
-      height: ${this.height}px;
-      background-color: red;
-      transform: translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg);
-      
-      
-      `
+
+      this.positionStyle =
+      {
+        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`
+      }
 
       
     }
@@ -73,7 +69,7 @@ class Asteroid extends React.Component{
 
         return (
           <this.AsteroidDiv 
-          className="asteroid"  
+          className="asteroid" style={this.positionStyle} 
           >
              
           </this.AsteroidDiv>
