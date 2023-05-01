@@ -20,6 +20,7 @@ class Asteroid extends React.Component{
       this.width = props.width;
       this.height = props.height;
       this.collisionRadius = props.width/2;
+      this.hp = props.hp;
      
 
       this.AsteroidDiv = styled.div`

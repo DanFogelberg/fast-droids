@@ -20,8 +20,8 @@ const Game = () => {
 
     addShip();
     addAsteroid();
-    addAsteroid(200, 50, "blue");
-    addAsteroid(666, 666, "white");
+    addAsteroid(200, 50, "blue", 4);
+    addAsteroid(666, 666, "white", 30);
     addAsteroid();
 
     
@@ -34,10 +34,10 @@ const Game = () => {
   }, [])
 
     
-  const addAsteroid = (width = 50, height = 50, color = "red") =>
+  const addAsteroid = (width = 50, height = 50, color = "red", hp = 1) =>
   {
     
-    asteroids.push({ref: React.createRef(), props: {width, height, color}})
+    asteroids.push({ref: React.createRef(), props: {width, height, color, hp}})
     setAsteroids(asteroids);
     //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
  
@@ -132,11 +132,17 @@ const Game = () => {
           
           if(distance <= collisionDistance)
           {
+            asteroid.ref.current.hp--;
+            if(asteroid.ref.current.hp <= 0)
+            {
               delete asteroids[asteroidId];
               setAsteroids(asteroids);
-              delete bullets[bulletId];
-              setBullets(bullets);
-              //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
+            }
+
+            
+            delete bullets[bulletId];
+            setBullets(bullets);
+            //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
               
               //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
           }
