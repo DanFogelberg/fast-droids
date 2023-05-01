@@ -24,6 +24,8 @@ class Bullet extends React.Component{
 
       this.BulletDiv = styled.div`
       position: fixed;
+      top: 0px;
+      left: 0px;
       width: ${this.width}px;
       height: ${this.height}px;
       background-color: orange;
@@ -43,13 +45,15 @@ class Bullet extends React.Component{
 
       if(this.state.x > window.innerWidth) this.setState({x: 0-this.width});
       if(this.state.x < 0-this.width) this.setState({x: window.innerWidth});
-      if(this.state.y > window.innerHeight) this.setState({y: 0-this.height});
+      if(this.state.y > window.innerHeight) this.setState({y: 0});
       if(this.state.y < 0-this.height) this.setState({y: window.innerHeight});
 
 
 
       this.BulletDiv = styled.div`
       position: fixed;
+      top: 0px;
+      left: 0px;
       width: ${this.width}px;
       height: ${this.height}px;
       background-color: orange;

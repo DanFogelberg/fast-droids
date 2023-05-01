@@ -24,6 +24,8 @@ class Asteroid extends React.Component{
 
       this.AsteroidDiv = styled.div`
       position: fixed;
+      top: 0px;
+      left: 0px;
       width: 100px;
       height: 100px;
       background-color: red;
@@ -50,6 +52,8 @@ class Asteroid extends React.Component{
 
       this.AsteroidDiv = styled.div`
       position: fixed;
+      top: 0px;
+      left: 0px;
       width: ${this.width}px;
       height: ${this.height}px;
       background-color: red;
@@ -61,10 +65,7 @@ class Asteroid extends React.Component{
       
     }
 
-    componentDidMount()
-    {
-      //this.setState({x: 10000});
-    }
+
 
 
 
