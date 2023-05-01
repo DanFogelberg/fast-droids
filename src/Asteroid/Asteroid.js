@@ -19,6 +19,8 @@ class Asteroid extends React.Component{
       this.rotationSpeed = 0.5;
       this.width = 100;
       this.height = 100;
+      this.collisionRadius = 50;
+     
 
       this.AsteroidDiv = styled.div`
       position: fixed;

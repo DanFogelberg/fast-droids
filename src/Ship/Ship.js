@@ -23,12 +23,12 @@ class Ship extends React.Component{
         this.width = 100;
         this.height = 100;
         this.speedDecay = 0.95;
+        this.collisionRadius = 50;
 
         window.addEventListener('keydown', (e) => {
             Object.keys(keys).forEach(key => {
                 if (e.key === key) {
                     keys[key] = true;
-                    console.log(keys);
                 }
             });
         })
@@ -36,7 +36,6 @@ class Ship extends React.Component{
             Object.keys(keys).forEach(key => {
                 if (e.key === key) {
                     keys[key] = false;
-                    console.log(keys);
                 }
             });
         })
@@ -76,7 +75,7 @@ class Ship extends React.Component{
         {
             this.setState({rotation: this.state.rotation + this.rotationSpeed});
         }
-        console.log(this.state.rotation);
+
         
         this.setState({x: this.state.x + this.xSpeed});
         this.setState({y: this.state.y + this.ySpeed});
