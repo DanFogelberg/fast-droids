@@ -12,7 +12,7 @@ class Bullet extends React.Component{
     constructor(props) {
       super(props);
       
-      
+      this.lifeTime = 60;
       this.rotationSpeed = 10;
       this.width = 10;
       this.height = 10;
@@ -35,7 +35,7 @@ class Bullet extends React.Component{
     }
     update()
     {
-      
+      this.lifeTime--; //Checked in Game. Removed if <=0
 
 
       this.setState({x: this.state.x + this.xSpeed});

@@ -23,9 +23,7 @@ const Game = () => {
     addAsteroid();
     addAsteroid();
     addAsteroid();
-    addBullet(10,105,100);
-    addBullet(50, 50, 20);
-    addBullet(10,10,10);
+
     
     
     if(running === false)
@@ -58,7 +56,7 @@ const Game = () => {
     const newBullets = bullets;
     setBullets(newBullets);
     //Since this is a functional component this function will not loop on an object. That means it will not have access to the components states. As such I cannot make new arrays for the state array, as this function will still access the old array. I also can't force a rerender by updating any states, as this function no longer can access them. Need to change it back to a class function again
-    console.log("Hmm");
+
 
    
     
@@ -66,7 +64,7 @@ const Game = () => {
     
   
   const gameLoop = () =>
-  setTest(test+1); 
+    setTest(test+1);  //This is real bad code, but needed to re-render changes to arrays until I turn this back into a class component again
     {       
     asteroids.forEach(asteroid => 
     {
@@ -77,9 +75,17 @@ const Game = () => {
       if(ship.current) ship.current.update();
     }) 
 
-    bullets.forEach(bullet => 
+    bullets.forEach((bullet, bulletId) => 
     {
-      if(bullet.ref.current) bullet.ref.current.update();
+      if(bullet.ref.current) 
+      {
+        bullet.ref.current.update();
+        // if(bullet.ref.current.lifeTime <= 0)
+        // {
+        //   delete bullets[bulletId];
+        //   setBullets(bullets);
+        // }
+      }
     })
 
 
