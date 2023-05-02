@@ -1,4 +1,3 @@
-import logo from '../logo.svg';
 import styled from 'styled-components';
 
 const MenuDiv = styled.div`
