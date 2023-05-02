@@ -2,7 +2,7 @@ export default async function api(date){
 
     //date format = YYYY-MM-DD
 
-    //Goals: Accepts date as argument and returns object of fetch
+    //Goals: velocity from RL
 
     const url = process.env.REACT_APP_API_URL;
     const key = process.env.REACT_APP_API_KEY;
@@ -22,7 +22,7 @@ export default async function api(date){
         // console.log(key, fetchedAsteroids[key]);
         fetchedAsteroids[key].forEach(asteroid => {
 
-            let averageDia = Math.floor((asteroid.estimated_diameter.meters.estimated_diameter_min + asteroid.estimated_diameter.meters.estimated_diameter_max)/2)
+            let averageDia = Math.floor((asteroid.estimated_diameter.meters.estimated_diameter_min + asteroid.estimated_diameter.meters.estimated_diameter_max)/4)
 
             asteroidData.push({
                 name: asteroid.name,

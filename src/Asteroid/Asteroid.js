@@ -10,7 +10,19 @@ class Asteroid extends React.Component{
 
     constructor(props) {
       super(props);
-      this.state = {x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, rotation: Math.random()*3.14};
+
+      let x;
+      let y;
+
+      if (Math.random() > 0.5) {
+        x = 0 - props.size;
+        y = Math.random()*window.innerHeight;
+      } else {
+        x = Math.random()*window.innerWidth;
+        y = 0 - props.size;
+      }
+
+      this.state = {x: x , y: y ,rotation: Math.random()*360};
 
       //Random values here
       
@@ -18,12 +30,11 @@ class Asteroid extends React.Component{
       this.width = props.size;
       this.height = props.size;
       this.collisionRadius = props.size/2;
-      this.maxHp = props.hp;
-      this.hp = props.hp;
+      this.maxHp = Math.ceil(props.size/50);
+      this.hp = this.maxHp;
       this.speed = 1;
       this.xSpeed =  this.speed * Math.sin(this.state.rotation);
       this.ySpeed =  -this.speed * Math.cos(this.state.rotation);
-     
 
       this.AsteroidDiv = styled.div`
       position: fixed;
@@ -31,8 +42,7 @@ class Asteroid extends React.Component{
       left: 0px;
       width: ${this.width}px;
       height: ${this.height}px;
-      background-color: ${props.color};
-      border-radius: 20px;
+      border-radius: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -43,9 +53,14 @@ class Asteroid extends React.Component{
         
       }
       `
+      this.hpColor = this.getHpColor(this.hp)
       this.positionStyle =
       {
-        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad)`
+        transform: 
+        `
+        translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad)
+        `,
+        backgroundColor: this.hpColor
       }
     }
     update()
@@ -66,11 +81,26 @@ class Asteroid extends React.Component{
 
 
 
+      this.hpColor = this.getHpColor(this.hp);
+
       this.positionStyle =
       {
-        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`
+        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`,
+        backgroundColor: this.hpColor
       }
 
+      
+    }
+
+    getHpColor(hp){
+      
+      if (hp == 1) return `rgb(255, 54, 0)`;
+      if (hp == 2) return `rgb(255, 100, 0)`;
+      if (hp == 3) return `rgb(255, 200, 0)`;
+      if (hp == 4) return `rgb(200, 255, 0)`;
+      if (hp == 5) return `rgb(100, 255, 0)`;
+      if (hp == 6) return `rgb(0, 255, 220)`;
+      if (hp > 6) return `rgb(0, 255, 255)`;
       
     }
 
