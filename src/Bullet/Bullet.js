@@ -31,9 +31,10 @@ class Bullet extends React.Component{
       background-color: orange;
       `
 
-      this.positionStyle = {
-        color: 'blue',
-      };
+      this.positionStyle =
+      {
+        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`
+      }
       
     }
     update()
