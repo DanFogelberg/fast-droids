@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 
 let ships = [];
-//let asteroids = [];
+let score = 0;
 
 let test = false;
 
@@ -16,6 +16,8 @@ const Game = () => {
   const [test, setTest] = useState(0);
   const [asteroids, setAsteroids] = useState([]);
   const [bullets, setBullets] = useState([]);
+
+ 
 
   useEffect(() => {
 
@@ -136,6 +138,8 @@ const Game = () => {
             asteroid.ref.current.hp--;
             if(asteroid.ref.current.hp <= 0)
             {
+              score += asteroid.ref.current.maxHp * 100;
+              console.log(score);
               delete asteroids[asteroidId];
               setAsteroids(asteroids);
             }
@@ -161,7 +165,7 @@ const Game = () => {
 
 
   return <div className="game">
-      <Score score={500}/>
+      <Score score={score}/>
     
       {asteroids.map((asteroid, asteroidId) => {        
         if(asteroid)return <Asteroid ref={asteroid.ref} key={asteroidId} {...asteroid.props} />  
