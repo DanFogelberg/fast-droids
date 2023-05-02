@@ -6,6 +6,7 @@ import Menu from '../Menu/Menu';
 import '../css/Game.css'; //Placeholder
 import { useEffect, useState } from 'react';
 import React from 'react';
+import api from '../helper/api';
 
 let showMenu = true;
 let ships = [];
