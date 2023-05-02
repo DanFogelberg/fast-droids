@@ -35,6 +35,8 @@ class Asteroid extends React.Component{
       this.speed = props.velocity/10;
       this.xSpeed =  this.speed * Math.sin(this.state.rotation);
       this.ySpeed =  -this.speed * Math.cos(this.state.rotation);
+      
+      this.name = this.props.name; 
 
       this.AsteroidDiv = styled.div`
       position: fixed;
@@ -46,10 +48,12 @@ class Asteroid extends React.Component{
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
 
       > *{
         text-align: center;
         vertical-align: center;
+        text-shadow: -1px 0 orange, 0 1px orange, 1px 0 orange, 0 -1px orange;
         
       }
       `
@@ -112,7 +116,7 @@ class Asteroid extends React.Component{
 
         return (
           <this.AsteroidDiv className="asteroid" style={this.positionStyle} > 
-            <p>{this.props.name}</p>   
+            <p>{this.name}</p>   
           </this.AsteroidDiv>
         );
       }
