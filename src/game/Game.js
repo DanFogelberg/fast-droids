@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import api from '../helper/api';
 
+
 let showMenu = true;
 let ships = [];
 let score = 0;
@@ -20,6 +21,8 @@ const Game = () => {
   const [asteroids, setAsteroids] = useState([]);
   const [bullets, setBullets] = useState([]);
 
+  
+
  
 
   useEffect(() => {
@@ -30,6 +33,14 @@ const Game = () => {
     addAsteroid(666, 666, "white", 30);
     addAsteroid();
 
+    api('2023-05-01').then((result) => {
+
+      console.log(result);
+      result.forEach(asteroid => {
+        addAsteroid()
+      });
+
+    })
     
     
     if(running === false)

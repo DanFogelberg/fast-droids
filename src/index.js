@@ -10,9 +10,6 @@ import api from './helper/api';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-
-api();
-
 root.render(
   <Game />
 );
