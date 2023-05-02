@@ -23,10 +23,12 @@ export default async function api(date){
         fetchedAsteroids[key].forEach(asteroid => {
 
             let averageDia = Math.floor((asteroid.estimated_diameter.meters.estimated_diameter_min + asteroid.estimated_diameter.meters.estimated_diameter_max)/4)
+            
 
             asteroidData.push({
                 name: asteroid.name,
-                dia: averageDia
+                dia: averageDia,
+                velocity: asteroid.close_approach_data[0].relative_velocity.kilometers_per_second
             });
 
         });

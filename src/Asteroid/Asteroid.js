@@ -26,13 +26,13 @@ class Asteroid extends React.Component{
 
       //Random values here
       
-      this.rotationSpeed = Math.random() * 1;
+      this.rotationSpeed = Math.random() * 1.5;
       this.width = props.size;
       this.height = props.size;
       this.collisionRadius = props.size/2;
       this.maxHp = Math.ceil(props.size/50);
       this.hp = this.maxHp;
-      this.speed = 1;
+      this.speed = props.velocity/10;
       this.xSpeed =  this.speed * Math.sin(this.state.rotation);
       this.ySpeed =  -this.speed * Math.cos(this.state.rotation);
 
