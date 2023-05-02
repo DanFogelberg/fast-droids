@@ -20,9 +20,6 @@ let game;
 
 
 class Game extends React.Component{
-    
-    
-
   constructor(props) {
     super(props);
     this.state = {running: false, test: 0, asteroids: [], bullets: []};
@@ -31,8 +28,6 @@ class Game extends React.Component{
     game = this;
 
     api('2023-05-01').then((result) => {
-
-      console.log(result);
       result.forEach(asteroid => {
         this.addAsteroid(asteroid.name, asteroid.dia, asteroid.velocity )
       });
@@ -58,7 +53,6 @@ class Game extends React.Component{
   }
   addBullet(x, y, rotation)
   {
-    console.log(game.state.bullets)
     //Using game since this is called from ship and "this" thus will refer to ship.
     let newBullets = game.state.bullets;
     newBullets.push({ref:React.createRef(), props:{x, y, rotation}});
@@ -148,7 +142,6 @@ class Game extends React.Component{
               let newAsteroidsArray = this.state.asteroids;
               delete newAsteroidsArray[asteroidId];
               this.setState({asteroids: newAsteroidsArray});
-
             }
 
             let newBulletArray = this.state.bullets;
