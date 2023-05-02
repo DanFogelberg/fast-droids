@@ -11,17 +11,19 @@ class Asteroid extends React.Component{
 
     constructor(props) {
       super(props);
-      this.state = {x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, rotation: 0};
+      this.state = {x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, rotation: Math.random()*3.14};
 
       //Random values here
-      this.xSpeed = 0.5;
-      this.ySpeed = 0.5;
-      this.rotationSpeed = 0.5;
+      
+      this.rotationSpeed = Math.random() * 1;
       this.width = props.width;
       this.height = props.height;
       this.collisionRadius = props.width/2;
       this.maxHp = props.hp;
       this.hp = props.hp;
+      this.speed = 1;
+      this.xSpeed =  this.speed * Math.sin(this.state.rotation);
+      this.ySpeed =  -this.speed * Math.cos(this.state.rotation);
      
 
       this.AsteroidDiv = styled.div`
@@ -35,7 +37,7 @@ class Asteroid extends React.Component{
       `
       this.positionStyle =
       {
-        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}deg)`
+        transform: `translate(${this.state.x}px, ${this.state.y}px) rotate(${this.state.rotation}rad)`
       }
     }
     update()
