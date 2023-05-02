@@ -4,12 +4,14 @@ import './index.css';
 import Game from './Game/Game';
 import reportWebVitals from './reportWebVitals';
 import Asteroid from './Asteroid/Asteroid';
+import api from './helper/api';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
-
+api();
 
 root.render(
   <Game />
