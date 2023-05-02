@@ -29,8 +29,8 @@ const Game = () => {
 
     addShip();
     addAsteroid();
-    addAsteroid(200, 50, "blue", 4);
-    addAsteroid(666, 666, "white", 30);
+    addAsteroid("Hans \"Hasse\" Andersson", 200, "blue", 4);
+    addAsteroid("Gunde", 666, "white", 30);
     addAsteroid();
 
     api('2023-05-01').then((result) => {
@@ -51,10 +51,10 @@ const Game = () => {
   }, [])
 
     
-  const addAsteroid = (width = 50, height = 50, color = "red", hp = 1) =>
+  const addAsteroid = (name = " ", size = 50, color = "red", hp = 1) =>
   {
     
-    asteroids.push({ref: React.createRef(), props: {width, height, color, hp}})
+    asteroids.push({ref: React.createRef(), props: {name, size, color, hp}})
     setAsteroids(asteroids);
     //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
  
