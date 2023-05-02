@@ -15,9 +15,9 @@ class Asteroid extends React.Component{
       //Random values here
       
       this.rotationSpeed = Math.random() * 1;
-      this.width = props.width;
-      this.height = props.height;
-      this.collisionRadius = props.width/2;
+      this.width = props.size;
+      this.height = props.size;
+      this.collisionRadius = props.size/2;
       this.maxHp = props.hp;
       this.hp = props.hp;
       this.speed = 1;
@@ -33,6 +33,15 @@ class Asteroid extends React.Component{
       height: ${this.height}px;
       background-color: ${props.color};
       border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      > *{
+        text-align: center;
+        vertical-align: center;
+        
+      }
       `
       this.positionStyle =
       {
@@ -72,10 +81,8 @@ class Asteroid extends React.Component{
       render(){
 
         return (
-          <this.AsteroidDiv 
-          className="asteroid" style={this.positionStyle} 
-          >
-             
+          <this.AsteroidDiv className="asteroid" style={this.positionStyle} > 
+            <p>{this.props.name}</p>   
           </this.AsteroidDiv>
         );
       }
