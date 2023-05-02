@@ -50,12 +50,7 @@ class Game extends React.Component{
   {
     let newAsteroidsArray = this.state.asteroids;
     newAsteroidsArray.push({ref: React.createRef(), props: {name, size, velocity}});
-    this.setState({asteroids: newAsteroidsArray});
-    
-    //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
- 
-   
-    
+    this.setState({asteroids: newAsteroidsArray});    
   }
   addShip()
   {
@@ -68,16 +63,14 @@ class Game extends React.Component{
     let newBullets = game.state.bullets;
     newBullets.push({ref:React.createRef(), props:{x, y, rotation}});
     game.setState({bullets: newBullets})
-    //state.bullets.push({ref:React.createRef(), props:{x, y, rotation}});
-    // const newBullets = bullets;
-    // setBullets(newBullets);
+
 
 
    
     
   }
 
-  gameLoop()  //This is real bad code, but needed to re-render changes to arrays until I turn this back into a class component again
+  gameLoop()  
   {
     this.state.asteroids.forEach(asteroid => 
     {
@@ -122,8 +115,8 @@ class Game extends React.Component{
           if(distance <= collisionDistance)
           {
               //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
+              //Delete ship here!
               
-              //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
              
           }
         }
@@ -155,7 +148,7 @@ class Game extends React.Component{
               let newAsteroidsArray = this.state.asteroids;
               delete newAsteroidsArray[asteroidId];
               this.setState({asteroids: newAsteroidsArray});
-              // setAsteroids(asteroids);
+
             }
 
             let newBulletArray = this.state.bullets;
