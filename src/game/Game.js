@@ -1,6 +1,7 @@
 import Asteroid from '../Asteroid/Asteroid';
 import Bullet from '../Bullet/Bullet';
 import Ship from '../Ship/Ship';
+import Score from '../Score/Score';
 import '../css/Game.css'; //Placeholder
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -160,6 +161,7 @@ const Game = () => {
 
 
   return <div className="game">
+      <Score score={500}/>
     
       {asteroids.map((asteroid, asteroidId) => {        
         if(asteroid)return <Asteroid ref={asteroid.ref} key={asteroidId} {...asteroid.props} />  
@@ -181,18 +183,6 @@ const Game = () => {
 
 
 
-
-
-
-    
-
-
-  
-
-
-
-
-  
 
 
 

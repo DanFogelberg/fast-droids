@@ -30,6 +30,7 @@ class Asteroid extends React.Component{
       width: ${this.width}px;
       height: ${this.height}px;
       background-color: ${props.color};
+      border-radius: 20px;
       `
       this.positionStyle =
       {
