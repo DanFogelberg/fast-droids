@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Game from './Game/Game';
-//import Menu from './Menu/Menu';
 import reportWebVitals from './reportWebVitals';
 import Asteroid from './Asteroid/Asteroid';
 

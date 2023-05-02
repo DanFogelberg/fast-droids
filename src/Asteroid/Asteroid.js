@@ -1,4 +1,3 @@
-import '../css/Asteroid.css'; //Placeholder
 import { useState } from 'react';
 import React from 'react';
 import styled from 'styled-components';

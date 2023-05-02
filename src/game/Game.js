@@ -2,10 +2,12 @@ import Asteroid from '../Asteroid/Asteroid';
 import Bullet from '../Bullet/Bullet';
 import Ship from '../Ship/Ship';
 import Score from '../Score/Score';
+import Menu from '../Menu/Menu';
 import '../css/Game.css'; //Placeholder
 import { useEffect, useState } from 'react';
 import React from 'react';
 
+let showMenu = true;
 let ships = [];
 let score = 0;
 
@@ -179,6 +181,9 @@ const Game = () => {
       {bullets.map((bullet, bulletId) => {
         return <Bullet ref={bullet.ref} key={bulletId+1100} {...bullet.props}/>  
       })}
+
+      { showMenu && <Menu/> }  
+      
       
       
 

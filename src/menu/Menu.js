@@ -1,11 +1,31 @@
 import logo from '../logo.svg';
-import '../css/Menu.css'; //Placeholder
+import styled from 'styled-components';
+
+const MenuDiv = styled.div`
+  font-size: 32px; 
+  position: absolute;
+    color: white;
+    z-index: 1;
+    top: 0;   
+
+
+    &: hover{
+      color:red;
+    }
+  `
+
+
+
+
 
 function Menu() {
+
+  
+
   return (
-    <div className="menu">
+    <MenuDiv className="menu">
       Kostbollar
-    </div>
+    </MenuDiv>
   );
 }
 

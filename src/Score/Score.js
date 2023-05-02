@@ -11,7 +11,6 @@ z-index: 10;
 
 > *{
     margin: 0px;
-
 }
 
 `;
@@ -28,7 +27,6 @@ const Score = (props) =>
 
     return <ScoreDiv>
         <p>Score: {props.score}</p>
-
     </ScoreDiv>
 
 
