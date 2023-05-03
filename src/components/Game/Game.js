@@ -3,10 +3,10 @@ import Bullet from '../Bullet/Bullet';
 import Ship from '../Ship/Ship';
 import Score from '../Score/Score';
 import Menu from '../Menu/Menu';
-import '../css/Game.css'; //Placeholder
+import '../../css/Game.css'; //Placeholder
 import { useEffect, useState } from 'react';
 import React from 'react';
-import api from '../helper/api';
+import api from '../../helper/api';
 
 
 let showMenu = true;
