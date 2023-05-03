@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Game from './Game/Game';
+import Game from './components/Game/Game';
 import reportWebVitals from './reportWebVitals';
-import Asteroid from './Asteroid/Asteroid';
+import Asteroid from './components/Asteroid/Asteroid';
 import api from './helper/api';
 
 
