@@ -4,12 +4,12 @@ import Ship from '../Ship/Ship';
 import Score from '../Score/Score';
 import Menu from '../Menu/Menu';
 import '../../css/Game.css'; //Placeholder
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import React from 'react';
 import api from '../../helper/api';
 
 
-let showMenu = true;
+
 let ships = [];
 let score = 0;
 
@@ -21,30 +21,28 @@ let game;
 class Game extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {running: false, test: 0, asteroids: [], bullets: []};
-    this.addShip()
+    this.state = {running: false, test: 0, asteroids: [], bullets: [], showMenu: true};
+    this.asteroidsAmount = 0;  
 
     game = this;
 
-    api("2023-03-01").then((result) => {
-      result.forEach(asteroid => {
-        this.addAsteroid(asteroid.name, asteroid.dia, asteroid.velocity )
-      });
-
-      
-
-    });
 
     if(this.state.running === false)
     { 
       this.gameLoop();
     };
   }
+
+
+
+  //Adding of game objects
   addAsteroid(name = " ", size = 50, velocity = 10)
   {
-    let newAsteroidsArray = this.state.asteroids;
+    let newAsteroidsArray = game.state.asteroids;
     newAsteroidsArray.push({ref: React.createRef(), props: {name, size, velocity}});
-    this.setState({asteroids: newAsteroidsArray});    
+    game.setState({asteroids: newAsteroidsArray});   
+    
+    game.asteroidsAmount++;
   }
   addShip()
   {
@@ -56,6 +54,7 @@ class Game extends React.Component{
     let newBullets = game.state.bullets;
     newBullets.push({ref:React.createRef(), props:{x, y, rotation}});
     game.setState({bullets: newBullets})
+    
 
 
 
@@ -105,11 +104,16 @@ class Game extends React.Component{
           const distanceX = Math.abs(asteroidCenterX - shipCenterX);
           const distanceY = Math.abs(asteroidCenterY - shipCenterY);
           const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
-          if(distance <= collisionDistance)
+          //Destroy ship and lose game!
+          if(distance <= collisionDistance) 
           {
-              //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
-              //Delete ship here!
-              
+            
+              delete ships[shipId];
+              this.setState({test: this.state.test + 1});
+              score = 0;
+
+              this.setState({showMenu: true}); 
+
              
           }
         }
@@ -141,6 +145,9 @@ class Game extends React.Component{
               let newAsteroidsArray = this.state.asteroids;
               delete newAsteroidsArray[asteroidId];
               this.setState({asteroids: newAsteroidsArray});
+              this.asteroidsAmount--;
+              if(this.asteroidsAmount <= 0) this.newGame();
+              
             }
 
             let newBulletArray = this.state.bullets;
@@ -159,7 +166,25 @@ class Game extends React.Component{
     });
   }
 
+  newGame(date = "2023-03-01") //date format YYYY-MM-DD
+  {
+    game.setState({asteroids: []});
+    ships = [];
+    game.addShip();
+    api("2023-03-01").then((result) => {
+      result.forEach(asteroid => {
+        game.addAsteroid(asteroid.name, asteroid.dia, asteroid.velocity )
+        
+      });
+    });
 
+    
+
+    
+    
+
+    game.setState({showMenu: false});
+  }
 
   render()
   {
@@ -180,11 +205,8 @@ class Game extends React.Component{
         return <Bullet ref={bullet.ref} key={bulletId+1100} {...bullet.props}/>  
       })}
 
-      { showMenu && <Menu/> }  
+      { this.state.showMenu && <Menu newGame = {this.newGame}/> }  
       
-      
-      
-
     </div>
   } 
 }

@@ -53,6 +53,7 @@ class Ship extends React.Component{
             text-align: center;
             vertical-align: middle;
             display: table-cell;
+            font-size: 20px;
 
         `
 
