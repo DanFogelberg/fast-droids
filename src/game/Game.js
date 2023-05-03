@@ -13,77 +13,60 @@ let showMenu = true;
 let ships = [];
 let score = 0;
 
-let test = false;
+let game;
 
-const Game = () => {
-  const [running, setRunning] = useState(false);
-  const [test, setTest] = useState(0);
-  const [asteroids, setAsteroids] = useState([]);
-  const [bullets, setBullets] = useState([]);
 
-  
 
- 
 
-  useEffect(() => {
 
-    addShip();
-    // addAsteroid();
-    // addAsteroid("Hans \"Hasse\" Andersson", 200, "blue", 4);
-    // addAsteroid("Gunde", 666, "white", 30);
-    // addAsteroid();
+class Game extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {running: false, test: 0, asteroids: [], bullets: []};
+    this.addShip()
+
+    game = this;
 
     api('2023-05-01').then((result) => {
-
-      console.log(result);
       result.forEach(asteroid => {
-        addAsteroid(asteroid.name, asteroid.dia, )
+        this.addAsteroid(asteroid.name, asteroid.dia, asteroid.velocity )
       });
 
-    })
-    
-    
-    if(running === false)
-    {
-      setRunning(true);
-      gameLoop();
-    }
-  }, [])
+      
 
-    
-  const addAsteroid = (name = " ", size = 50) =>
-  {
-    
-    asteroids.push({ref: React.createRef(), props: {name, size}})
-    setAsteroids(asteroids);
-    //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
- 
-   
-    
+    });
+
+    if(this.state.running === false)
+    { 
+      this.gameLoop();
+    };
   }
-
-  const addShip = () =>
+  addAsteroid(name = " ", size = 50, velocity = 10)
+  {
+    let newAsteroidsArray = this.state.asteroids;
+    newAsteroidsArray.push({ref: React.createRef(), props: {name, size, velocity}});
+    this.setState({asteroids: newAsteroidsArray});    
+  }
+  addShip()
   {
      ships.push(React.createRef());
   }
-
-  const addBullet = (x, y, rotation) => 
+  addBullet(x, y, rotation)
   {
-    bullets.push({ref:React.createRef(), props:{x, y, rotation}});
-    const newBullets = bullets;
-    setBullets(newBullets);
-    //Since this is a functional component this function will not loop on an object. That means it will not have access to the components states. As such I cannot make new arrays for the state array, as this function will still access the old array. I also can't force a rerender by updating any states, as this function no longer can access them. Need to change it back to a class function again
+    //Using game since this is called from ship and "this" thus will refer to ship.
+    let newBullets = game.state.bullets;
+    newBullets.push({ref:React.createRef(), props:{x, y, rotation}});
+    game.setState({bullets: newBullets})
+
 
 
    
     
   }
-    
-  
-  const gameLoop = () =>
-    setTest(test+1);  //This is real bad code, but needed to re-render changes to arrays until I turn this back into a class component again
-    {       
-    asteroids.forEach(asteroid => 
+
+  gameLoop()  
+  {
+    this.state.asteroids.forEach(asteroid => 
     {
       if(asteroid.ref.current) asteroid.ref.current.update();
     });
@@ -92,22 +75,24 @@ const Game = () => {
       if(ship.current) ship.current.update();
     }) 
 
-    bullets.forEach((bullet, bulletId) => 
+    this.state.bullets.forEach((bullet, bulletId) => 
     {
       if(bullet.ref.current) 
       {
         bullet.ref.current.update();
         if(bullet.ref.current.lifeTime <= 0)
         {
-          delete bullets[bulletId];
-          setBullets(bullets);
+          let newBulletArray = this.state.bullets;
+          delete newBulletArray[bulletId];
+          this.setState({bullets: newBulletArray})
         }
       }
     })
+  
 
 
     //Check collisions
-    asteroids.forEach((asteroid, asteroidId) => 
+    this.state.asteroids.forEach((asteroid, asteroidId) => 
     {
       ships.forEach((ship, shipId) => 
       {
@@ -124,14 +109,14 @@ const Game = () => {
           if(distance <= collisionDistance)
           {
               //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
+              //Delete ship here!
               
-              //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
              
           }
         }
        
       })
-      bullets.forEach((bullet, bulletId) => 
+      this.state.bullets.forEach((bullet, bulletId) => 
       {
         
         if(asteroid.ref.current && bullet.ref.current)
@@ -153,17 +138,15 @@ const Game = () => {
             if(asteroid.ref.current.hp <= 0)
             {
               score += asteroid.ref.current.maxHp * 100;
-              console.log(score);
-              delete asteroids[asteroidId];
-              setAsteroids(asteroids);
+          
+              let newAsteroidsArray = this.state.asteroids;
+              delete newAsteroidsArray[asteroidId];
+              this.setState({asteroids: newAsteroidsArray});
             }
 
-            
-            delete bullets[bulletId];
-            setBullets(bullets);
-            //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
-              
-              //Since this is a functional component the game loop will run on the old array if I create a new one instead of mutate it. This is a way to force a rerender since react doesn't react to mutating arrays. This should probably once again be remade back into a class component...
+            let newBulletArray = this.state.bullets;
+            delete newBulletArray[bulletId]; //Delete is used to keep indexes intact. Indexes keep track of the keys of asteroid components
+            this.setState({bullets: newBulletArray})
           }
         }
       })
@@ -173,24 +156,27 @@ const Game = () => {
 
     requestAnimationFrame(() => 
     {
-      gameLoop()
+      this.gameLoop()
     });
   }
 
 
-  return <div className="game">
+
+  render()
+  {
+    return <div className="game">
       <Score score={score}/>
     
-      {asteroids.map((asteroid, asteroidId) => {        
+      {this.state.asteroids.map((asteroid, asteroidId) => {        
         if(asteroid)return <Asteroid ref={asteroid.ref} key={asteroidId} {...asteroid.props} />  
       })}
        
       {ships.map((ship, shipId) => {
-        return <Ship ref={ship} key={shipId+1000} addBullet = {addBullet}/>  
+        return <Ship ref={ship} key={shipId+1000} addBullet = {this.addBullet}/>  
       })}
 
       
-      {bullets.map((bullet, bulletId) => {
+      {this.state.bullets.map((bullet, bulletId) => {
         return <Bullet ref={bullet.ref} key={bulletId+1100} {...bullet.props}/>  
       })}
 
@@ -200,5 +186,7 @@ const Game = () => {
       
 
     </div>
-};
+  } 
+}
+
 export default Game;
