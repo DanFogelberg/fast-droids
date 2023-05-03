@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+
+/* 
+To do: 
+- Description - real asteroids - if you pause the asteroids win and earth has lost all hope
+- Controls
+- Date picker: prop from game to menu
+*/
+
+
 const MenuDiv = styled.div`
   font-size: 32px; 
   position: absolute;
@@ -12,9 +21,6 @@ const MenuDiv = styled.div`
       color:red;
     }
   `
-
-
-
 
 
 function Menu() {
