@@ -4,6 +4,9 @@ export default async function api(date){
 
     const url = process.env.REACT_APP_API_URL;
     const key = process.env.REACT_APP_API_KEY;
+
+    console.log(url);
+    console.log(process.env.REACT_APP_API_URL);
     
     //start_date={today}&end_date={today}&api_key=
 
