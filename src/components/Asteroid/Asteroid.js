@@ -49,6 +49,7 @@ class Asteroid extends React.Component{
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      box-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
 
       > *{
         text-align: center;

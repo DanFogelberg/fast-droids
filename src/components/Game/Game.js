@@ -26,6 +26,13 @@ class Game extends React.Component{
 
     game = this;
 
+    //For menu background
+    api("2030-06-09").then((result) => {
+      result.forEach(asteroid => {
+        game.addAsteroid(asteroid.name, asteroid.dia, asteroid.velocity )
+        
+      });
+    });
 
     if(this.state.running === false)
     { 
