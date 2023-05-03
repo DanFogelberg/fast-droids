@@ -18,7 +18,6 @@ let game;
 
 
 
-
 class Game extends React.Component{
   constructor(props) {
     super(props);
@@ -27,7 +26,7 @@ class Game extends React.Component{
 
     game = this;
 
-    api('2023-05-01').then((result) => {
+    api("2023-03-01").then((result) => {
       result.forEach(asteroid => {
         this.addAsteroid(asteroid.name, asteroid.dia, asteroid.velocity )
       });
@@ -164,6 +163,7 @@ class Game extends React.Component{
 
   render()
   {
+
     return <div className="game">
       <Score score={score}/>
     

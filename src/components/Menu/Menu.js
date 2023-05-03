@@ -1,5 +1,6 @@
+import { useRef, useState, useEffect } from 'react';
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 import styled from 'styled-components';
-
 
 /* 
 To do: 
@@ -7,7 +8,6 @@ To do:
 - Controls
 - Date picker: prop from game to menu
 */
-
 
 const MenuDiv = styled.div`
   font-size: 32px; 
@@ -35,14 +35,32 @@ const MenuDiv = styled.div`
   }
   `
 
-
-function Menu() {
-
+const DatePicker = () => {
+  const [date, setDate] = useState('');
+  const dateInputRef = useRef(null);
   
+  const handleChange = (e) => {
+  setDate(e.target.value);
+  }
+  return (
+    <div>
+    <input
+      type="date"
+      onChange={handleChange}
+      ref={dateInputRef}
+    />
+    <p>{date}</p>
+</div>
+  )
+};
+
+function Menu(props) {
+
 
   return (
     <MenuDiv className="menu">
-      <h1>Kostbollar</h1>
+      <h1>SpaceBalls</h1>
+      <DatePicker></DatePicker>
     </MenuDiv>
   );
 }
