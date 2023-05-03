@@ -59,7 +59,7 @@ function Menu(props) {
 
   return (
     <MenuDiv className="menu">
-      <h1 onClick={props.newGame}>SpaceBalls</h1>
+      <h1 onClick={() => {props.newGame("2000-01-01")}}>SpaceBalls</h1>
       <DatePicker></DatePicker>
     </MenuDiv>
   );

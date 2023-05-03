@@ -8,15 +8,10 @@ import { createRef, useEffect, useState } from 'react';
 import React from 'react';
 import api from '../../helper/api';
 
-
-
 let ships = [];
 let score = 0;
 
 let game;
-
-
-
 
 class Game extends React.Component{
   constructor(props) {
@@ -40,8 +35,6 @@ class Game extends React.Component{
     };
   }
 
-
-
   //Adding of game objects
   addAsteroid(name = " ", size = 50, velocity = 10)
   {
@@ -61,11 +54,6 @@ class Game extends React.Component{
     let newBullets = game.state.bullets;
     newBullets.push({ref:React.createRef(), props:{x, y, rotation}});
     game.setState({bullets: newBullets})
-    
-
-
-
-   
     
   }
 
@@ -93,8 +81,6 @@ class Game extends React.Component{
         }
       }
     })
-  
-
 
     //Check collisions
     this.state.asteroids.forEach((asteroid, asteroidId) => 
@@ -128,7 +114,6 @@ class Game extends React.Component{
       })
       this.state.bullets.forEach((bullet, bulletId) => 
       {
-        
         if(asteroid.ref.current && bullet.ref.current)
         {
           const asteroidCenterX = asteroid.ref.current.state.x+asteroid.ref.current.width/2;
@@ -141,7 +126,6 @@ class Game extends React.Component{
           const distanceY = Math.abs(asteroidCenterY - bulletCenterY);
           const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
           
-          
           if(distance <= collisionDistance)
           {
             asteroid.ref.current.hp--;
@@ -153,8 +137,7 @@ class Game extends React.Component{
               delete newAsteroidsArray[asteroidId];
               this.setState({asteroids: newAsteroidsArray});
               this.asteroidsAmount--;
-              if(this.asteroidsAmount <= 0) this.newGame();
-              
+              if(this.asteroidsAmount <= 0) this.newGame(); 
             }
 
             let newBulletArray = this.state.bullets;
@@ -175,10 +158,13 @@ class Game extends React.Component{
 
   newGame(date = "2023-03-01") //date format YYYY-MM-DD
   {
+    
     game.setState({asteroids: []});
+    game.asteroidsAmount = 0;
+    
     ships = [];
     game.addShip();
-    api("2023-03-01").then((result) => {
+    api(date).then((result) => {
       result.forEach(asteroid => {
         game.addAsteroid(asteroid.name, asteroid.dia, asteroid.velocity )
         
