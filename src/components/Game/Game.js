@@ -1,5 +1,6 @@
 import Asteroid from '../Asteroid/Asteroid';
 import Bullet from '../Bullet/Bullet';
+import DateDisplay from '../Date/Date';
 import Ship from '../Ship/Ship';
 import Score from '../Score/Score';
 import Menu from '../Menu/Menu';
@@ -7,6 +8,7 @@ import '../../css/Game.css'; //Placeholder
 import { createRef, useEffect, useState } from 'react';
 import React from 'react';
 import api from '../../helper/api';
+
 
 let ships = [];
 let score = 0;
@@ -16,7 +18,7 @@ let game;
 class Game extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {running: false, test: 0, asteroids: [], bullets: [], showMenu: true};
+    this.state = {running: false, test: 0, asteroids: [], bullets: [], showMenu: true, date: ""};
     this.asteroidsAmount = 0;  
 
     game = this;
@@ -99,15 +101,12 @@ class Game extends React.Component{
           const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
           //Destroy ship and lose game!
           if(distance <= collisionDistance) 
-          {
-            
+          {  
               delete ships[shipId];
               this.setState({test: this.state.test + 1});
               score = 0;
 
               this.setState({showMenu: true}); 
-
-             
           }
         }
        
@@ -137,7 +136,27 @@ class Game extends React.Component{
               delete newAsteroidsArray[asteroidId];
               this.setState({asteroids: newAsteroidsArray});
               this.asteroidsAmount--;
-              if(this.asteroidsAmount <= 0) this.newGame(); 
+              
+       
+
+              if(this.asteroidsAmount <= 0)
+              {
+                const nextDay = new Date(this.state.date);
+                nextDay.setDate(nextDay.getDate()+1);
+
+                const year = nextDay.getFullYear();
+                let month = nextDay.getMonth() + 1;
+                if(month < 10) month = "0" + month;
+                let day = nextDay.getDate();
+                if(day < 10) day = "0" + day;
+                
+                
+                this.newGame(`${year}-${month}-${day}`); 
+              }
+              
+              
+
+               
             }
 
             let newBulletArray = this.state.bullets;
@@ -158,7 +177,7 @@ class Game extends React.Component{
 
   newGame(date = "2023-03-01") //date format YYYY-MM-DD
   {
-    console.log(date);
+    game.setState({date: date});
     game.setState({asteroids: []});
     game.asteroidsAmount = 0;
 
@@ -184,6 +203,7 @@ class Game extends React.Component{
 
     return <div className="game">
       <Score score={score}/>
+      {this.state.date && <DateDisplay date={this.state.date}/>}
     
       {this.state.asteroids.map((asteroid, asteroidId) => {        
         if(asteroid)return <Asteroid ref={asteroid.ref} key={asteroidId} {...asteroid.props} />  
