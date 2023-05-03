@@ -37,36 +37,33 @@ const MenuDiv = styled.div`
   }
   `
 
-const DatePicker = () => {
-  const [date, setDate] = useState('');
-  // const dateInputRef = useRef(null);
-  
-  const handleChange = (e) => 
-  {
-    
-    setDate(e.target.value);
-  }
-  
+const DatePicker = (props) => {
   return (
     <div>
     <input
       type="date"
-      onChange={handleChange}
+      onChange={props.handleChange}
       // ref={dateInputRef}
     />
-    <p>{date}</p>
+    <p>{props.date}</p>
 </div>
   )
 };
 
-function Menu(props) {
+function Menu(props) { 
+const [date, setDate] = useState('');
+// const dateInputRef = useRef(null);
+const handleChange = (e) => 
+{    
+  setDate(e.target.value);
+}
 
 
   return (
     <MenuDiv className="menu">
       <h1>SpaceBalls</h1>
-      <h2 onClick={() => {props.newGame(DatePicker.date)}}>New Game</h2>
-      <DatePicker></DatePicker>
+      <h2 onClick={() => {props.newGame(date)}}>New Game</h2>
+      <DatePicker handleChange = {handleChange} date = {date}></DatePicker>
     </MenuDiv>
   );
 }
