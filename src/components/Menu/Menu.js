@@ -9,6 +9,8 @@ To do:
 - Date picker: prop from game to menu
 */
 
+
+
 const MenuDiv = styled.div`
   font-size: 32px; 
   position: absolute;
@@ -17,37 +19,40 @@ const MenuDiv = styled.div`
   top: 0;   
   width: 100vw;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   text-shadow: -1px 0 orange, 0 1px orange, 1px 0 orange, 0 -1px orange;
   
   
   > *{
     transition-duration: 3s, 5s;
+    text-align: center;
+    vertical-align: center;
   }
  
 
-  > *:hover{
+  > h2:hover{
     color: red;
-    text-align: center;
-    vertical-align: center;
-    
-    
   }
   `
 
 const DatePicker = () => {
   const [date, setDate] = useState('');
-  const dateInputRef = useRef(null);
+  // const dateInputRef = useRef(null);
   
-  const handleChange = (e) => {
-  setDate(e.target.value);
+  const handleChange = (e) => 
+  {
+    
+    setDate(e.target.value);
   }
+  
   return (
     <div>
     <input
       type="date"
       onChange={handleChange}
-      ref={dateInputRef}
+      // ref={dateInputRef}
     />
     <p>{date}</p>
 </div>
@@ -59,7 +64,8 @@ function Menu(props) {
 
   return (
     <MenuDiv className="menu">
-      <h1 onClick={() => {props.newGame("2000-01-01")}}>SpaceBalls</h1>
+      <h1>SpaceBalls</h1>
+      <h2 onClick={() => {props.newGame(DatePicker.date)}}>New Game</h2>
       <DatePicker></DatePicker>
     </MenuDiv>
   );

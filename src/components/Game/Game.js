@@ -158,10 +158,10 @@ class Game extends React.Component{
 
   newGame(date = "2023-03-01") //date format YYYY-MM-DD
   {
-    
+    console.log(date);
     game.setState({asteroids: []});
     game.asteroidsAmount = 0;
-    
+
     ships = [];
     game.addShip();
     api(date).then((result) => {
