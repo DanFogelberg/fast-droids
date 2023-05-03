@@ -43,6 +43,8 @@ const DatePicker = (props) => {
     <input
       type="date"
       onChange={props.handleChange}
+      value={props.date}
+  
       // ref={dateInputRef}
     />
     <p>{props.date}</p>
@@ -51,12 +53,16 @@ const DatePicker = (props) => {
 };
 
 function Menu(props) { 
-const [date, setDate] = useState('');
+const [date, setDate] = useState('2000-01-01');
 // const dateInputRef = useRef(null);
+
+
 const handleChange = (e) => 
 {    
   setDate(e.target.value);
 }
+
+
 
 
   return (

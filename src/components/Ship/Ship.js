@@ -21,10 +21,10 @@ class Ship extends React.Component{
         this.ySpeed = 0;
         this.acceleration = 0.5;
         this.rotationSpeed = 0.1;
-        this.width = 50;
-        this.height = 50;
+        this.width = 20;
+        this.height = 20;
         this.speedDecay = 0.95;
-        this.collisionRadius = 25;
+        this.collisionRadius = 6;
 
         this.fireKeyWasDown = false;
 
