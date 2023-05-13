@@ -2,6 +2,7 @@ import Asteroid from "../Asteroid/Asteroid";
 import Bullet from "../Bullet/Bullet";
 import DateDisplay from "../Date/Date";
 import Ship from "../Ship/Ship";
+import ShipFunc from "../Ship/ShipFunction";
 import Score from "../Score/Score";
 import Menu from "../Menu/Menu";
 import "../../css/Game.css"; //Placeholder
@@ -19,13 +20,14 @@ class Game extends React.Component {
     super(props);
     this.state = {
       running: false,
-      test: 0,
       asteroids: [],
       bullets: [],
       showMenu: true,
       date: "",
+      frame: 0
     };
     this.asteroidsAmount = 0;
+
 
     game = this;
 
@@ -63,6 +65,10 @@ class Game extends React.Component {
   }
 
   gameLoop() {
+    //This if statement is a bad workaround. Should be fixed when made into functional component.
+    if(this.state.frame !== 0) this.setState({frame: this.state.frame+1}); 
+    else this.state.frame++;
+
     this.state.asteroids.forEach((asteroid) => {
       if (asteroid.ref.current) asteroid.ref.current.update();
     });
@@ -188,6 +194,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
+        <ShipFunc frame = {this.state.frame} addBullet = {this.addBullet}/>
         <Score score={score} />
         {this.state.date && <DateDisplay date={this.state.date} />}
 
