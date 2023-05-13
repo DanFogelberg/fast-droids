@@ -6,7 +6,7 @@ import ShipFunc from "../Ship/ShipFunction";
 import Score from "../Score/Score";
 import Menu from "../Menu/Menu";
 import "../../css/Game.css"; //Placeholder
-import { createRef, useEffect, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import React from "react";
 import api from "../../helper/api";
 
@@ -55,6 +55,7 @@ class Game extends React.Component {
     game.asteroidsAmount++;
   }
   addShip() {
+    //const shipRef = {x: useRef(), y: useRef()}
     ships.push(React.createRef());
   }
   addBullet(x, y, rotation) {
@@ -65,7 +66,7 @@ class Game extends React.Component {
   }
 
   gameLoop() {
-    //This if statement is a bad workaround. Should be fixed when made into functional component.
+    //This if statement is a bad workaround. Should be fixed when made into function component.
     if(this.state.frame !== 0) this.setState({frame: this.state.frame+1}); 
     else this.state.frame++;
 
@@ -194,7 +195,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <ShipFunc frame = {this.state.frame} addBullet = {this.addBullet}/>
+        
         <Score score={score} />
         {this.state.date && <DateDisplay date={this.state.date} />}
 
@@ -211,7 +212,8 @@ class Game extends React.Component {
 
         {ships.map((ship, shipId) => {
           return (
-            <Ship ref={ship} key={shipId + 1000} addBullet={this.addBullet} />
+            <ShipFunc /*ref = {ship} useforward ref here instead?*/ key={shipId + 1000} frame = {this.state.frame} addBullet = {this.addBullet}/>
+            // <Ship ref={ship} key={shipId + 1000} addBullet={this.addBullet} />
           );
         })}
 

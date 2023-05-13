@@ -74,17 +74,11 @@ const Ship = (props) => {
         }
       });
     });
-
-
-
-    
-
   }, []);
 
       //Update run on each frame.
       useEffect(() => 
       {
-        console.log(xSpeed);
         if (keys.w) {
           xSpeed = xSpeed + acceleration * Math.sin(rotation);
           ySpeed = ySpeed - acceleration * Math.cos(rotation);
